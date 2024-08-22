@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  background-image: radial-gradient(
+    circle at center top,
+    rgba(91, 3, 214, 1) 0%,
+    rgba(36, 41, 46, 1) 80%
+  );
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Anybody', Arial, Helvetica, sans-serif;
+  color: var(--text);
+}
+
+:root {
+  --bg: #24292e;
+  --primary: #5b03d6;
+  --secondary: #2d363f;
+  --text: #f6f6f6;
+}
