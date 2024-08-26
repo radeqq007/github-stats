@@ -1,12 +1,21 @@
 <template>
   <div class="hero">
     <h1>YOUR GITHUB STATS</h1>
-    <input type="text" placeholder="Your username..." />
-    <button>GET STATS</button>
+    <input type="text" placeholder="Your username..." v-model="username" />
+    <button @click="updateUsername">GET STATS</button>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+
+const username = ref('');
+const emit = defineEmits();
+
+const updateUsername = () => {
+  emit('username-changed', username.value);
+};
+</script>
 
 <style scoped>
 .hero {
