@@ -1,11 +1,15 @@
 <template>
-  <!-- WHY ISN'T THE CHART UPDATING I TRIED EVERYTHING SOMEBODY PLS HELP ME IVE TRIED FOR 3 DAYS STRAIGHT -->
-  <Doughnut :data="chartData" :options="chartOptions" ref="chart" />
+  <Doughnut
+    v-if="isDataFetched"
+    :data="chartData"
+    :options="chartOptions"
+    ref="chart"
+  />
 </template>
 
 <script setup>
 import { Chart } from 'chart.js/auto';
-import { nextTick, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { Doughnut } from 'vue-chartjs';
 
 const props = defineProps({
@@ -47,8 +51,15 @@ const chartOptions = {
   maintainAspectRatio: false,
 };
 
+let isDataFetched = ref(false);
+
 async function fetchData() {
-  if (!props.username) return;
+  if (!props.username) {
+    isDataFetched.value = false;
+    return;
+  }
+
+  isDataFetched.value = false;
 
   try {
     const resp = await fetch(
@@ -70,15 +81,7 @@ async function fetchData() {
 
     chartData.value.labels = Object.keys(langCounts);
     chartData.value.datasets[0].data = Object.values(langCounts);
-    console.log(chartData.value.labels);
-    console.log(chartData.value.datasets[0].data);
-
-    nextTick(() => {
-      if (chart.value) {
-        console.log(chart.value.chartInstance);
-        chart.value.chartInstance.update();
-      }
-    });
+    isDataFetched.value = true;
   } catch (err) {
     // TODO: Do something about this
     console.error(`Error fetching user data: ${err}`);
