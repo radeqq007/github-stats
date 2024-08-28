@@ -7,13 +7,21 @@
 </template>
 
 <script setup>
+import { Chart } from 'chart.js/auto';
 import { ref } from 'vue';
+
+// Default chart styling
+Chart.defaults.color = 'white';
 
 const username = ref('');
 const emit = defineEmits();
 
 const updateUsername = () => {
   emit('username-changed', username.value);
+
+  // Scroll do dashboard
+  const dashboardElement = document.getElementById('dashboard');
+  dashboardElement.scrollIntoView({ behavior: 'smooth' });
 };
 </script>
 

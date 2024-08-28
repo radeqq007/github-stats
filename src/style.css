@@ -15,8 +15,8 @@ body {
 }
 
 :root {
-  --bg: #24292e;
-  --primary: #5b03d6;
-  --secondary: #2d363f;
-  --text: #f6f6f6;
+  --bg: rgb(49, 54, 60);
+  --primary: rgb(91, 3, 214);
+  --secondary: rgb(45, 54, 63);
+  --text: rgb(246, 246, 246);
 }

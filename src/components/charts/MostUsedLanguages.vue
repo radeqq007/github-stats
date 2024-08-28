@@ -1,24 +1,14 @@
 <template>
-  <Doughnut
-    v-if="isDataFetched"
-    :data="chartData"
-    :options="chartOptions"
-    ref="chart"
-  />
+  <Doughnut v-if="isDataFetched" :data="chartData" :options="chartOptions" />
 </template>
 
 <script setup>
-import { Chart } from 'chart.js/auto';
 import { ref, watch } from 'vue';
 import { Doughnut } from 'vue-chartjs';
 
 const props = defineProps({
   username: String,
 });
-
-Chart.defaults.color = 'white';
-
-const chart = ref(null);
 
 const chartData = ref({
   labels: [''],
@@ -88,9 +78,10 @@ async function fetchData() {
   }
 }
 
+// Fetch data whenever username changes
 watch(
   () => props.username,
-  newUsername => fetchData(newUsername),
+  () => fetchData(),
   {
     immediate: true,
   }
