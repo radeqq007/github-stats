@@ -1,8 +1,11 @@
 <template>
   <div class="dashboard" id="dashboard">
-    <h2 v-if="username">{{ username }}'s stats</h2>
-    <h2 v-else>Enter your github username.</h2>
+    <h2 v-if="!username">Enter your github username.</h2>
     <div class="content">
+      <div class="profile card">
+        <h3 v-if="!username">Profile</h3>
+        <UserProfile :username="username" />
+      </div>
       <div class="most-used-langs card">
         <h3 class="card-title">Most used languages:</h3>
 
@@ -12,6 +15,7 @@
       </div>
 
       <div class="contributions card">
+        <h3>Contribiution chart:</h3>
         <canvas>
           <p>Your browser doesn't support canvas element.</p>
         </canvas>
@@ -31,6 +35,7 @@
 <script setup>
 import MostLikedRepos from './charts/MostLikedRepos.vue';
 import MostUsedLanguages from './charts/MostUsedLanguages.vue';
+import UserProfile from './charts/UserProfile.vue';
 
 const props = defineProps({
   username: String,
@@ -54,13 +59,13 @@ h2 {
 
 .content {
   min-height: 90vh;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
   padding-inline: 10rem;
   margin-bottom: 5rem;
 }
+
 .card {
   background-color: color-mix(in srgb, var(--secondary) 50%, transparent);
   backdrop-filter: blur(20px);
@@ -71,22 +76,25 @@ h2 {
   flex-direction: column;
   align-items: left;
   justify-content: start;
-  flex: 1 1 30%;
-  min-width: 250px;
-  max-width: 100%;
+  min-height: 25rem;
+}
+
+.profile {
+  grid-column: 1 / span 3;
 }
 
 .most-used-langs {
-  order: 1;
   aspect-ratio: 1;
+  grid-column: 1 / span 1;
 }
 
 .contributions {
-  order: 2;
-  flex: 2 1 60%;
+  grid-column: 2 / span 2;
 }
 
 .most-starred-repos {
+  grid-column: 1 / span 3;
+
   order: 3;
   flex: 1 1 100%;
 }
