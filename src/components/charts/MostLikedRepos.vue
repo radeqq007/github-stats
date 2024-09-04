@@ -40,8 +40,6 @@ async function fetchData() {
 
     repos.value = data.sort((a, b) => b.stargazers_count - a.stargazers_count);
     isDataFetched.value = true;
-
-    console.log(repos.value.length);
   } catch (err) {
     // TODO: Do something about this
     console.error(`Error fetching user data: ${err}`);
