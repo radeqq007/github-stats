@@ -13,12 +13,12 @@
           <MostUsedLanguages :username="username" />
         </div>
       </div>
+      <div class="repos-type card">
+        <h3 class="card-title">Types of repositories:</h3>
 
-      <div class="contributions card">
-        <h3>Contribiution chart:</h3>
-        <canvas>
-          <p>Your browser doesn't support canvas element.</p>
-        </canvas>
+        <div class="chart">
+          <ReposType :username="username" />
+        </div>
       </div>
 
       <div class="most-starred-repos card">
@@ -35,6 +35,7 @@
 <script setup>
 import MostLikedRepos from './charts/MostLikedRepos.vue';
 import MostUsedLanguages from './charts/MostUsedLanguages.vue';
+import ReposType from './charts/ReposType.vue';
 import UserProfile from './charts/UserProfile.vue';
 
 const props = defineProps({
@@ -60,7 +61,7 @@ h2 {
 .content {
   min-height: 90vh;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   padding-inline: 10rem;
   margin-bottom: 5rem;
@@ -80,7 +81,7 @@ h2 {
 }
 
 .profile {
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 2;
 }
 
 .most-used-langs {
@@ -88,12 +89,13 @@ h2 {
   grid-column: 1 / span 1;
 }
 
-.contributions {
-  grid-column: 2 / span 2;
+.repos-type {
+  aspect-ratio: 1;
+  grid-column: 2 / span 1;
 }
 
 .most-starred-repos {
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 2;
 
   order: 3;
   flex: 1 1 100%;
