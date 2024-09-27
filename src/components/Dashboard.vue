@@ -46,6 +46,7 @@ const props = defineProps({
 <style scoped>
 .dashboard {
   text-align: center;
+  width: 100%;
 }
 
 h2 {
@@ -65,6 +66,7 @@ h2 {
   gap: 1rem;
   padding-inline: 10rem;
   margin-bottom: 5rem;
+  width: 100%;
 }
 
 .card {
@@ -99,5 +101,39 @@ h2 {
 
   order: 3;
   flex: 1 1 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .content {
+    width: 100vw;
+    grid-template-columns: 1fr;
+    padding-inline: 0;
+    justify-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .profile {
+    grid-column: 1;
+  }
+
+  .most-used-langs {
+    aspect-ratio: 1;
+    grid-column: 1;
+  }
+
+  .repos-type {
+    aspect-ratio: 1;
+    grid-column: 1;
+  }
+
+  .most-starred-repos {
+    grid-column: 1;
+
+    order: 3;
+    flex: 1 1 100%;
+  }
 }
 </style>
