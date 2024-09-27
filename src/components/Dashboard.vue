@@ -49,11 +49,6 @@ const props = defineProps({
   width: 100%;
 }
 
-h2 {
-  font-size: 5rem;
-  font-weight: 900;
-}
-
 .card-title {
   font-size: 1.2rem;
   text-align: left;

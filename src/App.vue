@@ -15,4 +15,15 @@ const updateUsername = newUsername => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+h2 {
+  font-size: 5rem;
+  font-weight: 900;
+}
+
+@media screen and (max-width: 600px) {
+  h2 {
+    font-size: 1rem;
+  }
+}
+</style>

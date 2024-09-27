@@ -49,6 +49,7 @@ const updateUsername = () => {
 h1 {
   font-size: 6rem;
   font-weight: 900;
+  text-align: center;
 }
 
 input,
@@ -77,5 +78,11 @@ button {
   grid-row-start: 5;
   box-shadow: 0 0.2rem 0.2rem var(--primary);
   cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
 }
 </style>
