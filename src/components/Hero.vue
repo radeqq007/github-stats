@@ -1,8 +1,10 @@
 <template>
   <div class="hero">
     <h1>YOUR GITHUB STATS</h1>
-    <input type="text" placeholder="Your username..." v-model="username" />
-    <button @click="updateUsername">GET STATS</button>
+    <span class="input">
+      <input type="text" placeholder="Your username..." v-model="username" />
+      <button @click="updateUsername">GET STATS</button>
+    </span>
   </div>
 </template>
 
@@ -29,20 +31,31 @@ const updateUsername = () => {
 .hero {
   width: 100%;
   height: 100vh;
-  display: grid;
-  grid-template-rows: repeat(7, 1fr);
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10vh;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2vh;
 }
 
 h1 {
   font-size: 6rem;
   font-weight: 900;
 }
+
 input,
 button {
   background-color: var(--bg);
   height: 3.2rem;
-  width: 20%;
+  width: 100%;
   border: none;
   border-radius: 10rem;
   padding: 1rem;
