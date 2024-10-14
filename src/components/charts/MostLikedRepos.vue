@@ -101,4 +101,16 @@ watch(
 
   color: color-mix(in srgb, var(--text) 60%, black 40%);
 }
+
+@media screen and (max-width: 600px) {
+  .repos {
+    padding: 0;
+  }
+
+  .repo {
+    span {
+      width: 60%;
+    }
+  }
+}
 </style>
