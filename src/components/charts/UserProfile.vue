@@ -142,4 +142,18 @@ img {
   border-radius: 50%;
   margin-bottom: 0.8rem;
 }
+
+@media screen and (max-width: 600px) {
+  .profile {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .left,
+  .right {
+    width: 100%;
+    align-items: center;
+  }
+}
 </style>
