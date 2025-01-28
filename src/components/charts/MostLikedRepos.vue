@@ -1,14 +1,14 @@
 <template>
-  <div class="repos">
-    <div class="repo" v-for="(repo, index) in repos" :key="index">
-      <span>
-        <h4 class="name">{{ index + 1 }}. {{ repo.name }}</h4>
-        <h5 class="description">
+  <div class="w-full flex flex-col items-center gap-4">
+    <div class="bg-gray-900 w-full px-10 py-8 rounded-lg flex justify-between align-center hover:bg-gray-700 hover:scale-101 transition-all" v-for="(repo, index) in repos" :key="index">
+      <span class="flex flex-col gap-2">
+        <h4 class="font-bold text-2xl">{{ index + 1 }}. {{ repo.name }}</h4>
+        <h5 class="text-lg italic text-gray-300">
           {{ repo.description ? repo.description : 'No description' }}
         </h5>
       </span>
 
-      <p class="stars">{{ repo.stargazers_count }} ⭐</p>
+      <p class="text-xl">{{ repo.stargazers_count }} ⭐</p>
     </div>
   </div>
 </template>
@@ -55,62 +55,3 @@ watch(
   }
 );
 </script>
-
-<style scoped>
-.repos {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.repo {
-  display: flex;
-  justify-content: space-between;
-  height: 10rem;
-  width: 100%;
-  border-radius: 0.5rem;
-  background-color: color-mix(in srgb, var(--bg) 75%, transparent);
-  padding: 0 2rem;
-
-  transition: scale 0.08s ease-in-out, filter 0.08s ease-in-out;
-}
-
-.repo:hover {
-  scale: 1.02;
-  filter: brightness(1.1);
-}
-
-.repo span {
-  text-align: left;
-  width: 33%;
-}
-
-.name {
-  font-size: 1.2rem;
-  margin-block: 1rem;
-}
-
-.description {
-  font-size: 1rem;
-  font-weight: 300;
-  font-style: italic;
-  margin: 0;
-
-  color: color-mix(in srgb, var(--text) 60%, black 40%);
-}
-
-@media screen and (max-width: 600px) {
-  .repos {
-    padding: 0;
-  }
-
-  .repo {
-    span {
-      width: 60%;
-    }
-  }
-}
-</style>

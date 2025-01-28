@@ -1,9 +1,9 @@
 <template>
-  <div class="hero">
-    <h1>YOUR GITHUB STATS</h1>
-    <span class="input">
-      <input type="text" placeholder="Your username..." v-model="username" />
-      <button @click="updateUsername">GET STATS</button>
+  <div class="h-screen flex flex-col justify-center items-center gap-40">
+    <h1 class="font-black text-8xl">YOUR GITHUB STATS</h1>
+    <span class="flex flex-col items-center gap-8">
+      <input type="text" placeholder="Your username..." v-model="username" class="w-100 border-2 border-purple-600 rounded-3xl p-3 text-gray-100 text-center text-lg font-light bg-gray-900"/>
+      <button @click="updateUsername" class="w-100 bg-purple-600 rounded-3xl p-3 ">GET STATS</button>
     </span>
   </div>
 </template>
@@ -27,62 +27,4 @@ const updateUsername = () => {
 };
 </script>
 
-<style scoped>
-.hero {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10vh;
-}
 
-.input {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2vh;
-}
-
-h1 {
-  font-size: 6rem;
-  font-weight: 900;
-  text-align: center;
-}
-
-input,
-button {
-  background-color: var(--bg);
-  height: 3.2rem;
-  width: 100%;
-  border: none;
-  border-radius: 10rem;
-  padding: 1rem;
-  font-size: 1.1rem;
-  text-align: center;
-}
-
-input {
-  grid-row-start: 4;
-  font-weight: 300;
-}
-
-input:focus,
-input:active {
-  outline: 2px solid var(--primary);
-}
-
-button {
-  grid-row-start: 5;
-  box-shadow: 0 0.2rem 0.2rem var(--primary);
-  cursor: pointer;
-}
-
-@media screen and (max-width: 600px) {
-  h1 {
-    font-size: 2rem;
-  }
-}
-</style>

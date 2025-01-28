@@ -1,19 +1,20 @@
 <template>
-  <div class="profile" v-if="username">
-    <div class="left">
+  <div class="flex justify-between p-8" v-if="username">
+    <div class="flex flex-col items-center">
       <img
         :src="`https://avatars.githubusercontent.com/${username}`"
         alt="Profile Picture"
+        class="w-60 rounded-full"
       />
-      <h3 class="username">{{ username }}</h3>
-      <p class="bio">{{ bio }}</p>
+      <h3 class="font-black text-4xl">{{ username }}</h3>
+      <p class="italic text-xl">{{ bio }}</p>
     </div>
-    <div class="right">
-      <h4>
-        Followers: <span>{{ followers }}</span>
+    <div class="flex flex-col items-end w-1/2 gap-4 ">
+      <h4 class="text-3xl flex justify-between w-80">
+        Followers: <span class="bg-gray-800 w-30 text-center rounded-xl p-1">{{ followers }}</span>
       </h4>
-      <h4>
-        Following: <span>{{ following }}</span>
+      <h4 class="text-3xl flex justify-between w-80">
+        Following: <span class="bg-gray-800 w-30 text-center rounded-xl p-1">{{ following }}</span>
       </h4>
     </div>
   </div>
@@ -83,77 +84,3 @@ watch(
 );
 </script>
 
-<style scoped>
-.profile {
-  display: flex;
-  padding: 1rem;
-}
-
-.left,
-.right {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-}
-
-.left {
-  align-items: start;
-  justify-content: center;
-}
-
-.right {
-  justify-content: start;
-  align-items: right;
-  gap: 1.6rem;
-}
-
-.username {
-  font-size: 2rem;
-  margin: 0;
-}
-
-.bio {
-  margin-top: 1rem;
-  font-size: 1.1rem;
-  color: color-mix(in srgb, var(--text) 60%, black 40%);
-  font-style: italic;
-}
-
-.right h4 {
-  font-size: 2rem;
-  margin: 0;
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.right h4 span {
-  background-color: color-mix(in srgb, var(--secondary) 80%, transparent);
-  width: 6rem;
-  height: 2.3rem;
-  display: grid;
-  place-items: center;
-  border-radius: 0.4rem;
-}
-
-img {
-  height: 15rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  margin-bottom: 0.8rem;
-}
-
-@media screen and (max-width: 600px) {
-  .profile {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .left,
-  .right {
-    width: 100%;
-    align-items: center;
-  }
-}
-</style>
