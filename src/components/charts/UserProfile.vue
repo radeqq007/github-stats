@@ -1,15 +1,15 @@
 <template>
-  <div class="flex justify-between p-8" v-if="username">
+  <div class="flex justify-between p-1 md:p-8 md:flex-row flex-col items-center md:items-start" v-if="username">
     <div class="flex flex-col items-center">
       <img
         :src="`https://avatars.githubusercontent.com/${username}`"
         alt="Profile Picture"
-        class="w-60 rounded-full"
+        class="w-50 md:w-60 rounded-full"
       />
       <h3 class="font-black text-4xl">{{ username }}</h3>
-      <p class="italic text-xl">{{ bio }}</p>
+      <p class="italic text-lg md:text-xl">{{ bio }}</p>
     </div>
-    <div class="flex flex-col items-end w-1/2 gap-4 ">
+    <div class="flex flex-col items-center md:items-end w-1/2 gap-4 mt-10">
       <h4 class="text-3xl flex justify-between w-80">
         Followers: <span class="bg-gray-800 w-30 text-center rounded-xl p-1">{{ followers }}</span>
       </h4>
