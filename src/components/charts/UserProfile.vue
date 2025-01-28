@@ -11,10 +11,10 @@
     </div>
     <div class="flex flex-col items-center md:items-end w-1/2 gap-4 mt-10">
       <h4 class="text-3xl flex justify-between w-80">
-        Followers: <span class="bg-gray-800 w-30 text-center rounded-xl p-1">{{ followers }}</span>
+        Followers: <span class="bg-zinc-900 w-30 text-center rounded-xl p-1">{{ followers }}</span>
       </h4>
       <h4 class="text-3xl flex justify-between w-80">
-        Following: <span class="bg-gray-800 w-30 text-center rounded-xl p-1">{{ following }}</span>
+        Following: <span class="bg-zinc-900 w-30 text-center rounded-xl p-1">{{ following }}</span>
       </h4>
     </div>
   </div>

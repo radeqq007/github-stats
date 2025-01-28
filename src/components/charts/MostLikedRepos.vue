@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col items-center gap-4">
-    <div class="bg-gray-900 w-full px-10 py-8 rounded-lg flex justify-between align-center hover:bg-gray-700 hover:scale-101 transition-all" v-for="(repo, index) in repos" :key="index">
+    <div class="bg-zinc-800 w-full px-10 py-8 rounded-lg flex justify-between align-center hover:bg-zinc-700 hover:scale-101 transition-all" v-for="(repo, index) in repos" :key="index">
       <span class="flex flex-col gap-2">
         <h4 class="font-bold text-2xl">{{ index + 1 }}. {{ repo.name }}</h4>
         <h5 class="text-lg italic text-gray-300">
