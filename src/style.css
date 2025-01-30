@@ -1,1 +1,10 @@
 @import 'tailwindcss';
+
+.bg-dotted {
+  background-size: 2rem 2rem;
+  background-position: 0% 0%;
+  background-image: radial-gradient(
+    rgb(48, 48, 48) 6%,
+    theme(colors.zinc.900) 8%
+  );
+}
