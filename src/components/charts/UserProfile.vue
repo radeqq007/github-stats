@@ -51,7 +51,7 @@ async function fetchUserData() {
     const resp = await fetch(`https://api.github.com/users/${props.username}`);
 
     if (!resp.ok) {
-      throw new Error(`HTTP error! status: ${respo.status}`);
+      throw new Error(`HTTP error! status: ${resp.status}`);
     }
 
     const data = await resp.json();
