@@ -1,5 +1,5 @@
 <template>
-  <Doughnut v-if="isDataFetched" :data="chartData" :options="chartOptions" />
+  <Doughnut :data="chartData" :options="chartOptions" />
 </template>
 
 <script setup>
@@ -7,7 +7,7 @@ import { ref, watch } from 'vue';
 import { Doughnut } from 'vue-chartjs';
 
 const props = defineProps({
-  username: String,
+  data: Array,
 });
 
 const chartData = ref({
@@ -35,44 +35,24 @@ const chartOptions = {
   maintainAspectRatio: false,
 };
 
-let isDataFetched = ref(false);
-
-async function fetchData() {
-  if (!props.username) {
-    isDataFetched.value = false;
-    return;
-  }
-
-  isDataFetched.value = false;
-
-  try {
-    const resp = await fetch(
-      `https://api.github.com/users/${props.username}/repos`
-    );
-    const data = await resp.json();
-
-    const reposTypes = data.reduce((acc, repo) => {
+watch(
+  () => props.data,
+  () => {
+    const reposTypes = props.data.reduce((acc, repo) => {
       const type = repo.fork ? 'Forked' : 'Source';
       acc[type] = (acc[type] || 0) + 1;
       return acc;
     }, {});
 
-    chartData.value.labels = Object.keys(reposTypes);
-    chartData.value.datasets[0].data = Object.values(reposTypes);
-    isDataFetched.value = true;
-  } catch (err) {
-    // TODO: Do something about this
-    console.error(`Error fetching user data: ${err}`);
-  }
-}
-
-// Fetch data whenever username changes
-watch(
-  () => props.username,
-  () => fetchData(),
-  {
-    immediate: true,
-  }
+    chartData.value = {
+      labels: Object.keys(reposTypes),
+      datasets: [
+        {
+          ...chartData.value.datasets[0],
+          data: Object.values(reposTypes),
+        },
+      ],
+    };
+  },
 );
 </script>
-<style scoped></style>

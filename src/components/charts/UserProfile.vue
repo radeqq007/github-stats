@@ -32,6 +32,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 const props = defineProps({
+  data: Object,
   username: String,
 });
 
@@ -39,45 +40,15 @@ const followers = ref(0);
 const following = ref(0);
 const bio = ref('');
 
-async function fetchUserData() {
-  if (!props.username) {
-    followers.value = 0;
-    following.value = 0;
-    bio.value = '';
-    return;
-  }
-
-  try {
-    const resp = await fetch(`https://api.github.com/users/${props.username}`);
-
-    if (!resp.ok) {
-      throw new Error(`HTTP error! status: ${resp.status}`);
-    }
-
-    const data = await resp.json();
-
-    followers.value = data.followers;
-    following.value = data.following;
-    bio.value = data.bio;
-  } catch (err) {
-    // TODO: handle error
-    console.log(`Error fetching data: ${err}`);
-
-    // Reset data on error
-    followers.value = 0;
-    following.value = 0;
-    bio.value = '';
-  }
-}
-
-// Fetch data whenever username changes
 watch(
-  () => props.username,
-  () => {
-    fetchUserData();
+  () => props.data,
+  newData => {
+    followers.value = newData.followers;
+    following.value = newData.following;
+    bio.value = newData.bio;
   },
   {
     immediate: true,
-  }
+  },
 );
 </script>

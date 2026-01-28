@@ -5,12 +5,12 @@
       v-for="(repo, index) in repos"
       :key="index"
     >
-      <span class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2">
         <h4 class="font-bold text-2xl">{{ index + 1 }}. {{ repo.name }}</h4>
         <h5 class="text-lg italic text-gray-300">
           {{ repo.description ? repo.description : 'No description' }}
         </h5>
-      </span>
+      </div>
 
       <p class="text-xl">{{ repo.stargazers_count }} ⭐</p>
     </div>
@@ -21,41 +21,22 @@
 import { ref, watch } from 'vue';
 
 const props = defineProps({
-  username: String,
+  data: Array,
 });
 
-let isDataFetched = ref(false);
 const repos = ref([]);
 
-async function fetchData() {
-  if (!props.username) {
-    isDataFetched.value = false;
-    return;
-  }
-
-  isDataFetched.value = false;
-
-  try {
-    const resp = await fetch(
-      `https://api.github.com/users/${props.username}/repos`
-    );
-
-    const data = await resp.json();
-
-    repos.value = data.sort((a, b) => b.stargazers_count - a.stargazers_count);
-    isDataFetched.value = true;
-  } catch (err) {
-    // TODO: Do something about this
-    console.error(`Error fetching user data: ${err}`);
-  }
-}
-
-// Fetch data whenever username changes
 watch(
-  () => props.username,
-  () => fetchData(),
+  () => props.data,
+  newData => {
+    if (!Array.isArray(newData)) return;
+
+    repos.value = [...newData].sort(
+      (a, b) => b.stargazers_count - a.stargazers_count,
+    );
+  },
   {
     immediate: true,
-  }
+  },
 );
 </script>

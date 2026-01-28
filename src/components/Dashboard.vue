@@ -6,7 +6,7 @@
         class="w-full col-span-2 p-10 bg-zinc-800/60 backdrop-blur-xs rounded-lg"
       >
         <h3 v-if="!username">Profile</h3>
-        <UserProfile class="" :username="username" />
+        <UserProfile :data="user" :username="username" />
       </div>
       <div
         class="bg-zinc-800/60 backdrop-blur-xs rounded-lg px-10 py-5 flex flex-col gap-10 col-span-2 md:col-span-1"
@@ -14,7 +14,7 @@
         <h3 class="font-bold text-4xl text-center">Most used languages:</h3>
 
         <div class="chart">
-          <MostUsedLanguages :username="username" />
+          <MostUsedLanguages :data="repos" />
         </div>
       </div>
       <div
@@ -23,7 +23,7 @@
         <h3 class="font-bold text-4xl text-center">Types of repositories:</h3>
 
         <div class="chart">
-          <ReposType :username="username" />
+          <ReposType :data="repos" />
         </div>
       </div>
 
@@ -31,7 +31,7 @@
         <h3 class="font-bold text-4xl text-center">Most liked repos:</h3>
 
         <div>
-          <MostLikedRepos :username="username" />
+          <MostLikedRepos :data="repos" />
         </div>
       </div>
     </div>
@@ -44,7 +44,30 @@ import MostUsedLanguages from './charts/MostUsedLanguages.vue';
 import ReposType from './charts/ReposType.vue';
 import UserProfile from './charts/UserProfile.vue';
 
+import { ref, watch } from 'vue';
+
 const props = defineProps({
   username: String,
 });
+
+const user = ref({});
+const repos = ref([]);
+
+const fetchData = async () => {
+  if (!props.username) return;
+  const [userResp, reposResp] = await Promise.all([
+    fetch(`https://api.github.com/users/${props.username}`),
+    fetch(`https://api.github.com/users/${props.username}/repos`),
+  ]);
+
+  user.value = await userResp.json();
+  repos.value = await reposResp.json();
+
+  console.log(repos.value);
+};
+
+watch(
+  () => props.username,
+  () => fetchData(),
+);
 </script>
