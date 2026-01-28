@@ -57,7 +57,7 @@ const fetchData = async () => {
   if (!props.username) return;
   const [userResp, reposResp] = await Promise.all([
     fetch(`https://api.github.com/users/${props.username}`),
-    fetch(`https://api.github.com/users/${props.username}/repos`),
+    fetch(`https://api.github.com/users/${props.username}/repos?per_page=100`),
   ]);
 
   user.value = await userResp.json();
