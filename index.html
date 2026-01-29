@@ -14,7 +14,64 @@
     />
   </head>
   <body>
-    <div id="app" class="bg-dotted text-gray-100"></div>
+    <div class="bg-dotted text-gray-100 min-w-screen min-h-screen">
+      <header class="h-screen flex flex-col justify-center items-center gap-10 md:gap-40">
+        <h1 class="font-black text-7xl text-center md:text-9xl w-full md:w-160">YOUR GITHUB STATS</h1>
+        <span class="flex flex-col items-center gap-8">
+          <span class="relative bg-linear-to-r from-purple-600 to-blue-600 rounded-3xl">
+            <span class="absolute inset-0.5 bg-zinc-900 group-hover:opacity-0 duration-100 rounded-3xl"></span>
+            <input type="text" id="username-input" placeholder="Your username..." class="relative z-10 w-70 md:w-100 focus:outline-0 rounded-3xl p-1 md:p-3 text-gray-100 text-center text-lg font-light">
+          </span>
+          <button class="group relative w-70 md:w-100 bg-linear-to-r from-purple-600 to-blue-600 rounded-3xl p-2 md:p-3" id="get-stats">
+            <span class="absolute inset-0.5 bg-zinc-900 opacity-0 md:opacity-100 group-hover:opacity-0 duration-100 rounded-3xl"></span>
+            <span class="relative z-10">GET STATS</span>
+          </button>
+        </span>
+      </header>
+      <main class="w-11/12 m-auto">
+        <div class="grid grid-cols-2 gap-4">
+          <div id="profile" class="w-full col-span-2 p-10 bg-zinc-800/60 backdrop-blur-xs rounded-lg">
+            <div class="flex justify-between p-1 md:p-8 md:flex-row flex-col items-center md:items-start">
+              <div class="flex flex-col items-center">
+                <img src="https://avatars.githubusercontent.com/radeqq007" alt="github pfp" class="w-50 md:w-60 rounded-full" id="pfp">
+                <h3 class="font-black text-4xl" id="username">radeqq007</h3>
+                <p class="italic text-lg md:text-xl" id="bio">A passionate software developer from Poland 🇵🇱</p>
+              </div>
+              <div class="flex flex-col items-center md:items-end w-1/2 gap-4 mt-10">
+                <h4 class="text-3xl flex justify-between w-80">
+                  Followers:
+                  <span class="bg-zinc-900 w-30 text-center rounded-xl p-1" id="followers">
+                    16
+                  </span>
+                </h4>
+                <h4 class="text-3xl flex justify-between w-80">
+                  Following:
+                  <span class="bg-zinc-900 w-30 text-center rounded-xl p-1" id="following">
+                    26
+                  </span>
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div class="bg-zinc-800/60 backdrop-blur-xs rounded-lg px-10 py-5 flex flex-col gap-10 col-span-2 md:col-span-1">
+            <h3 class="font-bold text-4xl text-center">Most used languages:</h3>
+            <canvas id="languages-chart"></canvas>
+          </div>
+          <div class="bg-zinc-800/60 backdrop-blur-xs rounded-lg px-10 py-5 flex flex-col gap-10 col-span-2 md:col-span-1">
+            <h3 class="font-bold text-4xl text-center">Types of repositories:</h3>
+            <div id="repos-chart">
+
+            </div>
+          </div>
+          <div class="col-span-2 flex flex-col gap-2">
+            <h3 class="font-bold text-4xl text-center">Most liked repositories:</h3>
+            <div id="liked-repos" class="w-full flex flex-col items-center gap-4">
+
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
