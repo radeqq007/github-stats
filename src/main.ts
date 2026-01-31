@@ -15,6 +15,37 @@ const profileData = $ref<Profile>({
   following: 0
 })
 
+const chartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: 'Most used languages',
+    },
+  },
+} as const
+
+const chartBackgroundColor = [
+  'rgba(255, 99, 132, 0.2)',
+  'rgba(54, 162, 235, 0.2)',
+  'rgba(255, 206, 86, 0.2)',
+  'rgba(75, 192, 192, 0.2)',
+  'rgba(153, 102, 255, 0.2)',
+  'rgba(255, 159, 64, 0.2)',
+]
+
+const chartBorderColor = [
+  'rgba(255, 99, 132, 1)',
+  'rgba(54, 162, 235, 1)',
+  'rgba(255, 206, 86, 1)',
+  'rgba(75, 192, 192, 1)',
+  'rgba(153, 102, 255, 1)',
+  'rgba(255, 159, 64, 1)',
+]
+
 const mostLikedRepos = $computed(() => {
   return reposData().sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 5)
 })
@@ -65,4 +96,29 @@ function updateUI() {
 
     $('#liked-repos').append(repoElement)
   });
+
+  const languages = getMostUsedLanguages()
+  const langChartCtx = ($('#languages-chart').elements[0] as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D
+  new Chart(langChartCtx, {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(languages),
+      datasets: [{
+        data: Object.values(languages),
+        backgroundColor: chartBackgroundColor,
+        borderColor: chartBorderColor,
+        borderWidth: 1
+      }],
+    },
+    options: chartOptions
+  })
+}
+
+function getMostUsedLanguages(): Record<string, number> {
+  const languages = reposData().map(repo => repo.language).filter(language => language !== null)
+  const languageCounts = languages.reduce((acc, language) => {
+    acc[language] = (acc[language] || 0) + 1
+    return acc
+  }, {} as Record<string, number>)
+  return languageCounts
 }
