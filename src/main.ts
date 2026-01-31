@@ -47,7 +47,7 @@ const chartBorderColor = [
 ]
 
 const mostLikedRepos = $computed(() => {
-  return reposData().sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 5)
+  return reposData().sort((a, b) => b.stargazers_count - a.stargazers_count)
 })
 
 $('#username-input').bindInput(username)
