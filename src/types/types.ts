@@ -4,6 +4,7 @@ export type Repo = {
     stargazers_count: number;
     html_url: string;
     language: string;
+    fork: boolean;
 }
 
 export type Profile = {

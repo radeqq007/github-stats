@@ -47,7 +47,20 @@ const chartBorderColor = [
 ]
 
 const mostLikedRepos = $computed(() => {
-  return reposData().sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 5)
+  return reposData().sort((a, b) => b.stargazers_count - a.stargazers_count)
+})
+
+const languageCounts = $computed(() => {
+  const langs = reposData().map(r => r.language).filter(Boolean)
+  return langs.reduce((acc, l) => { acc[l] = (acc[l] || 0) + 1; return acc }, {} as Record<string, number>)
+})
+
+const repoTypesCounts = $computed(() => {
+  const types = reposData().map(r => r.fork ? 'Fork' : 'Source')
+  return {
+    Fork: types.filter(t => t === 'Fork').length,
+    Source: types.filter(t => t === 'Source').length
+  }
 })
 
 $('#username-input').bindInput(username)
@@ -91,20 +104,23 @@ function updateUI() {
       )
       .class('flex flex-col gap-2')
       .attr('href', repo.html_url)
-      .attr('target', '_blank')
-    ).class('bg-zinc-800/60 backdrop-blur-xs w-full px-10 py-8 rounded-lg flex justify-between align-center hover:bg-zinc-700 hover:scale-101 transition-all')
+      .attr('target', '_blank'),
+
+      $new('span')
+      .text(`⭐ ${repo.stargazers_count}`)
+        .class('text-xl text-gray-400')
+    ).class('card w-full flex justify-between align-center hover:bg-zinc-700 hover:scale-101 transition-all')
 
     $('#liked-repos').append(repoElement)
   });
 
-  const languages = getMostUsedLanguages()
   const langChartCtx = ($('#languages-chart').elements[0] as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D
   new Chart(langChartCtx, {
     type: 'doughnut',
     data: {
-      labels: Object.keys(languages),
+      labels: Object.keys(languageCounts()),
       datasets: [{
-        data: Object.values(languages),
+        data: Object.values(languageCounts()),
         backgroundColor: chartBackgroundColor,
         borderColor: chartBorderColor,
         borderWidth: 1
@@ -112,13 +128,23 @@ function updateUI() {
     },
     options: chartOptions
   })
-}
 
-function getMostUsedLanguages(): Record<string, number> {
-  const languages = reposData().map(repo => repo.language).filter(language => language !== null)
-  const languageCounts = languages.reduce((acc, language) => {
-    acc[language] = (acc[language] || 0) + 1
-    return acc
-  }, {} as Record<string, number>)
-  return languageCounts
+  const types = reposData().map(repo => repo.fork ? 'Fork' : 'Source')
+  const typeChartCtx = ($('#types-chart').elements[0] as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D
+  new Chart(typeChartCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Fork', 'Source'],
+      datasets: [{
+        data: [
+          repoTypesCounts().Fork,
+          repoTypesCounts().Source
+        ],
+        backgroundColor: chartBackgroundColor,
+        borderColor: chartBorderColor,
+        borderWidth: 1
+      }],
+    },
+    options: chartOptions
+  })
 }
