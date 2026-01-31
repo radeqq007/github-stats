@@ -112,6 +112,25 @@ function updateUI() {
     },
     options: chartOptions
   })
+
+  const types = reposData().map(repo => repo.fork ? 'Fork' : 'Source')
+  const typeChartCtx = ($('#types-chart').elements[0] as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D
+  new Chart(typeChartCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Fork', 'Source'],
+      datasets: [{
+        data: [
+          types.filter(type => type === 'Fork').length,
+          types.filter(type => type === 'Source').length
+        ],
+        backgroundColor: chartBackgroundColor,
+        borderColor: chartBorderColor,
+        borderWidth: 1
+      }],
+    },
+    options: chartOptions
+  })
 }
 
 function getMostUsedLanguages(): Record<string, number> {
