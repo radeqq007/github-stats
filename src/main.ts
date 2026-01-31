@@ -2,10 +2,18 @@ import { Chart } from 'chart.js/auto';
 import ky from 'ky';
 import { $, $computed, $new, $ref } from 'oberry';
 import './style.css';
+import { Profile, Repo } from './types/types';
 
-const username = $ref('')
-const reposData = $ref([])
-const profileData = $ref({})
+const username = $ref<string>('')
+const reposData = $ref<Repo[]>([])
+const profileData = $ref<Profile>({
+  login: '',
+  id: 0,
+  bio: '',
+  avatar_url: '',
+  followers: 0,
+  following: 0
+})
 
 const mostLikedRepos = $computed(() => {
   return reposData().sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 5)
@@ -19,12 +27,13 @@ $('#get-stats').on('click', async () => {
   await fetchData(name)
 })
 
-async function fetchData(name) {
-  const userResp = await ky.get(`https://api.github.com/users/${name}`).json()
-  const reposResp = await ky.get(`https://api.github.com/users/${name}/repos?per_page=100`).json()
+async function fetchData(name: string) {
+  const userResp = await ky.get(`https://api.github.com/users/${name}`).json() as Profile
+  const reposResp = await ky.get(`https://api.github.com/users/${name}/repos?per_page=100`).json() as Repo[]
 
   profileData(userResp)
   reposData(reposResp)
+  console.log(reposData()[0])
 
   updateUI()
 }
@@ -33,8 +42,8 @@ function updateUI() {
   $('#pfp').attr('src', profileData().avatar_url || '')
   $('#username').text(profileData().login || '')
   $('#bio').text(profileData().bio || '')
-  $('#followers').text(profileData().followers || 0)
-  $('#following').text(profileData().following || 0)
+  $('#followers').text(profileData().followers.toString() || '0')
+  $('#following').text(profileData().following.toString() || '0')
 
   $('#liked-repos').children().remove()
 
