@@ -1,6 +1,6 @@
 # Github stats
 
-_unfinished_
+Written with [oBerry](https://github.com/radeqq007/oBerry) and Chart.js
 
 ## Get your github stats:
 
