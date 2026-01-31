@@ -109,7 +109,7 @@ function updateUI() {
       $new('span')
       .text(`⭐ ${repo.stargazers_count}`)
         .class('text-xl text-gray-400')
-    ).class('bg-zinc-800/60 backdrop-blur-xs w-full px-10 py-8 rounded-lg flex justify-between align-center hover:bg-zinc-700 hover:scale-101 transition-all')
+    ).class('card w-full flex justify-between align-center hover:bg-zinc-700 hover:scale-101 transition-all')
 
     $('#liked-repos').append(repoElement)
   });

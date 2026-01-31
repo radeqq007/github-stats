@@ -8,3 +8,15 @@
     theme(colors.zinc.900) 8%
   );
 }
+
+.card {
+  @apply bg-zinc-800/60 backdrop-blur-xs rounded-lg px-10 py-5;
+}
+
+.gradient-border {
+  @apply relative bg-linear-to-r from-purple-600 to-blue-600 rounded-3xl;
+}
+
+.gradient-border-inset {
+  @apply absolute inset-0.5 bg-zinc-900 rounded-3xl;
+}
