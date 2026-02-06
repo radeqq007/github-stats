@@ -77,7 +77,6 @@ async function fetchData(name: string) {
 
   profileData(userResp)
   reposData(reposResp)
-  console.log(reposData()[0])
 
   updateUI()
 }
