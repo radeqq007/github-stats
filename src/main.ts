@@ -106,7 +106,7 @@ function updateUI() {
       .attr('target', '_blank'),
 
       $new('span')
-      .text(`⭐ ${repo.stargazers_count}`)
+        .text(`⭐ ${repo.stargazers_count}`)
         .class('text-xl text-gray-400')
     ).class('card w-full flex justify-between align-center hover:bg-zinc-700 hover:scale-101 transition-all')
 
